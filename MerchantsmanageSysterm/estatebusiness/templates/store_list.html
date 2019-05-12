@@ -89,14 +89,29 @@
                     var  the_url = "{% url 'business:store-update' pk='8899'  %}"
                     var real_url = the_url.replace('8899',rowData.id)
                     var update_btn = "<a  src = '8899' class='btn btn-xs m-l-xs btn-info'> 更新</a>".replace('8899',real_url);
-
-
                     var del_btn = "<a class='btn btn-xs m-l-xs btn-info btn-del'> 删除</a>";
                     $(td).addClass("toggle");
                     $(td).html(update_btn + del_btn)
 
                 }
             },
+
+             {
+                targets: 1,
+
+                createdCell: function (td, cellData, rowData) {
+                    console.log('-------------------rowData')
+                    console.log(rowData)
+
+                    var  the_url = "{% url 'business:store-detail' pk='123'  %}"
+                    var real_url = the_url.replace('8899',rowData.id)
+                    var detail_url = String("<a  src = '8899' class='btn btn-xs m-l-xs btn-info'>"+ cellData + "</a>").replace('8899',real_url);
+                    $(td).addClass("toggle");
+                    $(td).html(detail_url)
+
+                }
+            },
+
 
 
         ]
