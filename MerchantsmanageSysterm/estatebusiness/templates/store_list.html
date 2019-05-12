@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+     <link rel="stylesheet" href="{% static '/lib/css/bootstrap.min.css' %}">
+
+</head>
+<body>
+
+        <table class="table table-hover table-bordered "  id = "issuetable" >
+            <thead>
+                <tr>
+                    <th> <input type="checkbox" name="cb-check-all"></th>
+                <th>名字</th>
+                <th>地址</th>
+                <th>城市</th>
+                <th>动作</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+
+            </tbody>
+        </table>
+
+
+"{% url 'business:store-update' pk='123d'   %}"
+ '{% url "api-business:api-storelist" %}'
+</body>
+
+<script src = "{% static  '/lib/js/jquery-1.11.1.min.js'%}">  </script>
+<script src = "{% static  '/lib/js/datatables/datatables.min.js' %}">  </script>
+
+
+<script>
+    $('#issuetable').DataTable({
+
+        ajax: {
+            url: '{% url "api-business:api-storelist" %}',
+            dataSrc: ''
+        },
+        // data: [{
+        //     "id": "233",
+        //     "name": "煲仔饭",
+        //     "address": "南京路",
+        //     "city": "上海"
+        // }],
+
+        columns: [
+
+            { //复选框单元格
+                className: "td-checkbox",
+                orderable: false,
+                width: "30px",
+                data: null,
+                render: function (data, type, row, meta) {
+                    return '<input type="checkbox" class="iCheck">';
+                }
+            },
+
+
+            // {
+            //
+            //     data:"id"
+            // },
+
+            {
+                data: "name"
+            },
+            {
+                data: "address"
+            },
+            {
+                data: "city"
+            },
+        ],
+
+        columnDefs: [{
+                targets: 4,
+                createdCell: function (td, cellData, rowData) {
+                    console.log('===================')
+                    console.log(rowData)
+                    var  the_url = "{% url 'business:store-update' pk='8899'  %}"
+                    var real_url = the_url.replace('8899',rowData.id)
+                    var update_btn = "<a  src = '8899' class='btn btn-xs m-l-xs btn-info'> 更新</a>".replace('8899',real_url);
+
+
+                    var del_btn = "<a class='btn btn-xs m-l-xs btn-info btn-del'> 删除</a>";
+                    $(td).addClass("toggle");
+                    $(td).html(update_btn + del_btn)
+
+                }
+            },
+
+
+        ]
+
+
+
+    })
+</script>
+
+</html>
