@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+
+{% block content%}
+
+
+ <div class="col-sm-9 col-lg-10 main">
+        <!-- 第一行 -->
+        <div class="row">
+            <ol>
+                <li>
+                    仪表盘
+                </li>
+            </ol>
+
+        </div>
+
+
+
+        <!--  搞一个分部地图出来 -->
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">店铺城市分布情况</h3>
+              </div>
+              <div class="panel-body">
+
+                  <div id="charts"  style = "width:100%;height:400px" ></div>
+
+              </div>
+        </div>
+
+</div>>
+
+
+{% endblock %}
+
+
+{% block customer_js %}
+
+
+<script>
+    function init_geocharts(params) {
+
+        var mycharts = echarts.init(document.getElementById('charts'))
+        // console.log(geomap)
+        // //自定义城市坐标菜单
+        // var geomapjson = JSON.stringify(geomap);
+        var option = {
+            backgroundColor: '#404a59', //整个画布背景
+            //标题组件
+            title: {
+                text: '主要分布城市',
+                // subtext: 'data from PM25.in',
+                // sublink: 'http://www.pm25.in',
+                left: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            //提示框组件
+            tooltip: {
+                trigger: 'item',
+                "confine": true,
+                "formatter": (p) => { //自定义提示信息
+                    let dataCon = p.data;
+                    txtCon = dataCon.name + '<br>商铺数量:' + dataCon.value[2];
+                    return txtCon;
+                }
+            },
+            //左下lengend
+            visualMap: {
+                min: 0, //最小
+                max: 300, //最大
+                splitNumber: 5, //共分5层
+                color: ['#ff6300', '#eac736', '#50a3ba'], //颜色从高到低依次渐变
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            //地图区域样式
+            geo: {
+                map: 'china',
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    //未激活样式
+                    normal: {
+                        areaColor: '#323c48',
+                        borderColor: '#111'
+                    },
+                    //激活样式
+                    emphasis: {
+                        areaColor: '#2a333d'
+                    }
+                }
+            },
+            //数据
+            series: [{
+                name: 'stores',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: params,
+
+                symbolSize: 12,
+                //直接在点上显示标签
+                label: {
+                    show: false,
+                    formatter: '{b}',
+                    offset: [15, -15], //文字的相对偏移
+                },
+                //标签的样式
+                itemStyle: {
+                    emphasis: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }
+                }
+            }]
+        }
+        mycharts.setOption(option);
+    }
+</script>
+
+<script>
+    $.ajax({
+
+            url:"{% url  'api-business:api-citycount' %}",
+            type:"GET",
+            dataType:"json",
+            success:function (somedata) {
+                geomap_list = []
+            for (i = 0; i < somedata.length; i++) {
+                var geomap = {}
+                lon_lat_list = []
+                lon_lat_list.push(somedata[i].longitude)
+                lon_lat_list.push(somedata[i].latitude)
+                lon_lat_list.push(somedata[i].num_store)
+                geomap['value'] = lon_lat_list
+                geomap['name'] = somedata[i].city
+                geomap_list.push(geomap)
+                init_geocharts(geomap_list)
+
+            }
+
+
+
+            }
+    })
+
+
+</script>
+
+
+
+
+{% endblock %}

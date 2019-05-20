@@ -14,7 +14,7 @@ class UserRrgister(CreateView):
     model = User
     form_class =UserForm
     template_name = 'users/user_register.html'
-    success_url ='/register'
+    success_url ='/business/storelist'
 
     def get_context_data(self, **kwargs):
         """Insert the form into the context dict."""
@@ -28,14 +28,27 @@ class UserRrgister(CreateView):
 
 class UserLogin(FormView):
     form_class = UserLoginForm
-    template_name = 'users/user_register.html'
-    success_url = '/register'
+    template_name = 'users/login.html'
+    success_url = '/business/storelist'
 
     # 终于能够登陆了
     def form_valid(self, form):
         # ip = get_login_ip(self.request)
         print(form.fields)
         return super().form_valid(form)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

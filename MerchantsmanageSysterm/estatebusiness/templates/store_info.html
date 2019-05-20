@@ -1,65 +1,49 @@
-{%  load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static '/lib/css/bootstrap.min.css' %}">
-    
-</head>
-
-<body>
-    <!-- 导航栏 -->
-    <div class="row">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href=""> 商户管理系统 </a>
-                    <ul class="user-menu">
-                        <li class="dropdown pull-right">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#collapseUser" href=""> <span
-                                    class="glyphicon glyphicon-user"></span> User
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a>profile</a></li>
-                                <li><a>设置</a></li>
-                                <li><a>登出</a></li>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-
-
-
-
-
-    <div class="container-fluid">
-        <div class="row container-inner">
-            <!-- 侧边栏 -->
-            <div class="col-sm-3 col-lg-2 sidebar">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <ul class="nav menu">
-                    <li><a href="">仪表盘</a></li>
-                    <li><a href=""> 表单</a></li>
-                    <li><a href="">图表</a></li>
-                    <li> <a href='./storelist.html'> 商铺 </a></li>
-                </ul>
-            </div>
+{% extends "base.html" %}
+{% block content %}
             <div class="col-sm-9 col-lg-10 main">
                 <h3> 商铺详情 </h3>
-
                 <div class="row">
                     <div class="col-sm-6 col-lg-4">
-                        <div class="panel panel-default">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> 合同情况</h3>
+                            </div>
                             <div class="panel-body">
-                                Basic panel example
+                                <form role="form" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="field-1">店名</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static"  >  {{ contract.effect_date }}  </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="field-1">地址</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static"  >  {{ contract.amount }}  </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="field-1">城市</label>
+                                        <div class="col-sm-10">
+                                           <p class="form-control-static" >{{contract.rent }}</p>
+                                        </div>
+                                    </div>
+
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="col-sm-2 control-label">Select list</label>-->
+<!--                                        <div class="col-sm-10">-->
+<!--                                            <select class="form-control">-->
+<!--                                                <option>Option 1</option>-->
+<!--                                                <option>Option 2</option>-->
+<!--                                                <option>Option 3</option>-->
+<!--                                                <option>Option 4</option>-->
+<!--                                                <option>Option 5</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form-group-separator"></div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -73,23 +57,20 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="field-1">店名</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="field-1"
-                                                placeholder="Placeholder">
+                                            <p class="form-control-static"  >  {{ store.name }}  </p>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="field-1">地址</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="field-1"
-                                                placeholder="Placeholder">
+                                            <p class="form-control-static"  >  {{ store.address }}  </p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="field-1">城市</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="field-1"
-                                                placeholder="Placeholder">
+                                           <p class="form-control-static" >{{ store.city }}</p>
                                         </div>
                                     </div>
 
@@ -119,7 +100,8 @@
                             <h3 class="panel-title">租金情况</h3>
                         </div>
                         <div class="panel-body">
-                            租金表格
+
+                            <div id = "rentlinechart"   style="height:400px"></div>
                         </div>
                     </div>
                 </div>
@@ -131,141 +113,71 @@
     </div>
 </body>
 
-<script src="./lib/js/jquery-1.11.1.min.js"> </script>
-<script src="./lib/js/bootstrap.min.js"></script>
-<script src="./lib/js/datatables/datatables.min.js"> </script>
 
 
 
-<script>
-    $(document).ready(function () {
+{% endblock %}
 
-            $("#issuetable").DataTable({
+{% block custom_footer %}
 
-                // "ajax": "ajaxdata.txt",
+{% endblock %}
 
+{% block customer_js %}
+<script type="text/javascript">
 
-                data: [{
-                    "id": 233,
-                    "name": "煲仔饭",
-                    "address": "南京路",
-                    "city": "上海"
-                }],
-
-                columns: [
-
-                    { //复选框单元格
-                        className: "td-checkbox",
-                        orderable: false,
-                        width: "30px",
-                        data: null,
-                        render: function (data, type, row, meta) {
-                            return '<input type="checkbox" class="iCheck">';
-                        }
-                    },
-
-
-                    {
-                        data: "name"
-                    },
-                    {
-                        data: "address"
-                    },
-                    {
-                        data: "city"
-                    },
-                ],
-
-                columnDefs: [{
-                        targets: 4,
-
-                        createdCell: function (td, cellData, rowData) {
-                            console.log('===================')
-                            console.log(rowData)
-
-                            var update_btn =
-                                "<a  src = '{ }' class='btn btn-xs m-l-xs btn-info'> 更新</a>";
-                            var del_btn = "<a class='btn btn-xs m-l-xs btn-info btn-del'> 删除</a>";
-                            $(td).addClass("toggle");
-                            $(td).html(update_btn + del_btn)
-
-                        }
-                    },
-                ]
-
-                // 增删改查
-
-            })
-
-        })
-
-</script>
-
-
-
-<script>
-    $('#issuetable').DataTable({
-
-        ajax: {
-            url: '{% url "api-business:api-storelist" %}',
-            dataSrc: ''
+     var xvals = [];
+     var yvals = [];
+    $.ajax({
+        url: "{% url 'api-business:api-rentbills' %}",
+        type: "GET",
+        data: {
+            contracId: "{{ contract.id}}"
         },
-        data: [{
-            "id": 233,
-            "name": "煲仔饭",
-            "address": "南京路",
-            "city": "上海"
-        }],
 
-        columns: [
+        dataType: "json",
 
-            { //复选框单元格
-                className: "td-checkbox",
-                orderable: false,
-                width: "30px",
-                data: null,
-                render: function (data, type, row, meta) {
-                    return '<input type="checkbox" class="iCheck">';
-                }
-            },
+        success: function (data) {
+            console.log('-----------------')
+            console.log(data)
 
 
-            {
-                data: "name"
-            },
-            {
-                data: "address"
-            },
-            {
-                data: "city"
-            },
-        ],
-
-        columnDefs: [{
-                targets: 4,
-
-                createdCell: function (td, cellData, rowData) {
-                    console.log('===================')
-                    console.log(rowData)
-
-                    var update_btn =
-                        "<a  src = '{ business:store-update }' class='btn btn-xs m-l-xs btn-info'> 更新</a>";
+           for(var i=0;i<data.length;i++){
+                       xvals.push(data[i].real_date);
+                       yvals.push(data[i].rent_amount)//挨个取出类别并填入类别数组
+                     }
+            console.log(xvals);
+            console.log(yvals);
 
 
-                    var del_btn = "<a class='btn btn-xs m-l-xs btn-info btn-del'> 删除</a>";
-                    $(td).addClass("toggle");
-                    $(td).html(update_btn + del_btn)
 
-                }
-            },
-
-
-        ]
-
-
+        }
 
     })
+
+
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('rentlinechart'));
+    // 指定图表的配置项和数据
+    var option = {
+        xAxis: {
+              type : 'category',
+            data: ["2019-05-01", "2019-06-07", "2019-08-09"]
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: ["500.00", "600.00", "1000.00"],
+            type: 'line'
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
 </script>
 
 
-</html>
+
+
+{% endblock %}

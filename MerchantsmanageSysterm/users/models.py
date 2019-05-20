@@ -8,12 +8,12 @@ import uuid
 from django import forms
 
 class User(AbstractUser):
-    id = models.UUIDField(verbose_name = "uuid",primary_key = True,default=uuid.uuid4)
-    name =  models.CharField(max_length=12,verbose_name =_('User name'),blank=True)
-    groups = models.ManyToManyField('UserGroup', related_name='users',blank=True, verbose_name=_('User group'))
+    id = models.AutoField(primary_key=True)
+    name =  models.CharField(max_length=12,verbose_name =_('User name'),blank=True,default="")
+    groups = models.ManyToManyField('UserGroup', related_name='users',blank=True,  default="", verbose_name=_('User group'))
     role = models.ManyToManyField('UserRole', related_name='role',default="1",verbose_name = "roles")
-    wechat = models.CharField( max_length=128, blank=True, verbose_name=_('Wechat'))
-    phone = models.CharField( max_length=20, blank=True, null=True, verbose_name=_('Phone'))
+    wechat = models.CharField( max_length=128, blank=True, verbose_name=_('Wechat'),default="")
+    phone = models.CharField( max_length=20, blank=True, null=True, verbose_name=_('Phone'),default="")
     # name = models.CharField( max_length=20,blank=True,verbose_name=_('User name'))
 
 
@@ -22,7 +22,7 @@ class User(AbstractUser):
 
 
 class UserGroup(models.Model):
-    id = models.UUIDField(verbose_name="uuid", primary_key=True, default=uuid.uuid4)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120, verbose_name="GroupName")
     comment = models.TextField(blank=True, verbose_name=_('Comment'))
     date_created = models.DateTimeField(auto_now_add=True, null=True,verbose_name=_('Date created'))
@@ -30,7 +30,7 @@ class UserGroup(models.Model):
 
 
 class UserRole(models.Model):
-    id = models.UUIDField(verbose_name="uuid", primary_key=True, default=uuid.uuid4)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120, verbose_name="RoleName")
     # Rolepermission = models.CharField("RolePersmission",default='11',verbose_name=_('Rolepermission'))
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_('Date created'))
@@ -65,9 +65,11 @@ class UserLoginForm(AuthenticationForm):
     )
 
 
-    # def clean_username(self):
-    #     username = self.changed_data['username']
-    #     username_pass =
+
+
+
+
+
 
 
 

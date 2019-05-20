@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-
+# 登录失败返回账号或者密码错误
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # url(r'^index.html$',,name='index'),
     url(r'^users/', include('users.urls.views_urls', namespace='users')),
     url(r'^business/',include('estatebusiness.urls.view_urls',namespace = 'business')),
-   url(r'^api/bussiness/', include('estatebusiness.urls.api_urls', namespace='api-business'))
+   url(r'^api/bussiness/', include('estatebusiness.urls.api_urls', namespace='api-business')),
 ]
 
 

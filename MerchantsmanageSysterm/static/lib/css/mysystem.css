@@ -1,6 +1,4 @@
-
-        /* 滚雪球 */
-        .user-menu {
+.user-menu {
             display: inline-block;
             float: right;
             margin-right: 10px;
@@ -74,13 +72,11 @@
             border: black solid 1px;
         }
 
-        .main {
 
-            float: right;
-            border: black solid 1px;
-        }
-
-        .container-inner {
-
-            padding: 15px;
+        @media (min-width: 768px) {
+            .main {
+                padding-right: 40px;
+                padding-left: 40px;
+                float: right;
+            }
         }
