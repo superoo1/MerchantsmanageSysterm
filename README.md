@@ -10,7 +10,7 @@
 
 列表页
 
-![image](https://github.com/superoo1/MerchantsmanageSysterm/blob/master/index.png)
+![image](https://github.com/superoo1/MerchantsmanageSysterm/blob/master/list.png)
 
 eharts index 页面
 
