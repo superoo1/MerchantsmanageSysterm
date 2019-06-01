@@ -29,7 +29,3 @@ class StoreCitycountSerializer(serializers.Serializer):
     latitude = serializers.CharField(required=False, allow_blank=True, max_length=16)
 
 
-
-
-    # def  get_num_store(self, obj):
-    #     return obj

@@ -52,7 +52,6 @@ class Store(models.Model):
         with connection.cursor() as cursor:
             cursor.execute("SELECT longitude,latitude from s_provinces where shortName = '%s' and depth=2"%city)
             row = cursor.fetchone()
-
         return row
 
 
