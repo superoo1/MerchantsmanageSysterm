@@ -34,10 +34,9 @@
 
 {% endblock %}
 
-{% block custom_footer %}
+{% block customer_js %}
 <script>
     $('#issuetable').DataTable({
-
         ajax: {
             url: '{% url "api-business:api-storelist" %}',
             dataSrc: ''

@@ -39,6 +39,20 @@ class UserLogin(FormView):
 
 
 
+# 登出视图  消息队列
+class UserLogout(FormView):
+    pass
+
+
+
+
+
+
+
+# 购物车模块
+
+
+# 抢购模块 大并发
 
 
 

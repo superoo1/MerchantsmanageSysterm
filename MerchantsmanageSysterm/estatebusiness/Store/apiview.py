@@ -39,10 +39,9 @@ class ApiRentbill(ListAPIView):
 class StoreCitycount(ListAPIView):
     serializer_class = StoreCitycountSerializer
 
-
-
     def get_queryset(self):
         return Store.get_citycount()
+
 
 
 

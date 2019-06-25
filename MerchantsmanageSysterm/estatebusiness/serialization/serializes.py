@@ -29,3 +29,5 @@ class StoreCitycountSerializer(serializers.Serializer):
     latitude = serializers.CharField(required=False, allow_blank=True, max_length=16)
 
 
+
+

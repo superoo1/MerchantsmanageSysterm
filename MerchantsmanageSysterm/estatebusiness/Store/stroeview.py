@@ -23,7 +23,6 @@ class StoreDetailView(DetailView):
     template_name = 'store_info.html'
 
 
-
     # 把跟商铺相关的合同去
     def get_contract(self):
         pk = self.kwargs.get(self.pk_url_kwarg)
@@ -43,8 +42,6 @@ class StoreDetailView(DetailView):
 
 class IndexView(TemplateView):
     template_name = 'index.html'
-
-
 
 
 
