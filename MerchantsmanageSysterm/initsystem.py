@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-bind = "127.0.0.1:8080"
+bind = "127.0.0.1:8000"
 WORKERS = 4
 log_format = '%(h)s %(t)s "%(r)s" %(s)s %(b)s '
 
